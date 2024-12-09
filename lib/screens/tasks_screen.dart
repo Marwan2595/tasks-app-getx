@@ -40,18 +40,23 @@ class TasksScreen extends StatelessWidget {
                 ),
               ),
               Obx(
-                () => Expanded(
-                  child: ListView.builder(
-                    itemCount: tasksController.tasks.length,
-                    itemBuilder: (context, index) => TaskCard(
-                      taskModel: tasksController.tasks[index],
-                      onComplete: () {
-                        tasksController.completeTask(index);
-                        tasksController.tasks.refresh();
-                      },
-                    ),
-                  ),
-                ),
+                () {
+                  return tasksController.loadingTasks.value
+                      ? const Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: tasksController.tasks.length,
+                            itemBuilder: (context, index) => TaskCard(
+                              taskModel: tasksController.tasks[index],
+                              onComplete: () {
+                                tasksController
+                                    .completeTask(tasksController.tasks[index]);
+                                // tasksController.tasks.refresh();
+                              },
+                            ),
+                          ),
+                        );
+                },
               ),
             ],
           ),
