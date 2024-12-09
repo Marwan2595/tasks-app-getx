@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tasks_app/controllers/tasks_controller.dart';
 import 'package:tasks_app/models/task_model.dart';
 import 'package:tasks_app/widgets/task_card.dart';
 
 class TasksScreen extends StatelessWidget {
-  List<TaskModel> testTasksList = [
-    TaskModel(title: "Task 1", isCompleted: false),
-    TaskModel(title: "Task 2", isCompleted: false),
-    TaskModel(title: "Task 3", isCompleted: false),
-    TaskModel(title: "Task 4", isCompleted: true),
-    TaskModel(title: "Task 5", isCompleted: true),
-    TaskModel(title: "Task 6", isCompleted: true),
-    TaskModel(title: "Task 7", isCompleted: false),
-    TaskModel(title: "Task 8", isCompleted: false),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final TasksController tasksController = Get.put(TasksController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
-        onPressed: () {},
+        onPressed: () {
+          tasksController.addTask(
+            TaskModel(
+              title: "Task ${tasksController.tasks.length + 1}",
+            ),
+          );
+        },
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -41,13 +39,18 @@ class TasksScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Expanded(
-                // width: 200,
-                // height: 500,
-                child: ListView.builder(
-                  itemBuilder: (context, index) =>
-                      TaskCard(taskModel: testTasksList[index]),
-                  itemCount: testTasksList.length,
+              Obx(
+                () => Expanded(
+                  child: ListView.builder(
+                    itemCount: tasksController.tasks.length,
+                    itemBuilder: (context, index) => TaskCard(
+                      taskModel: tasksController.tasks[index],
+                      onComplete: () {
+                        tasksController.completeTask(index);
+                        tasksController.tasks.refresh();
+                      },
+                    ),
+                  ),
                 ),
               ),
             ],

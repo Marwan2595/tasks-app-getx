@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tasks_app/models/task_model.dart';
 
@@ -6,9 +5,10 @@ class TaskCard extends StatelessWidget {
   const TaskCard({
     super.key,
     required this.taskModel,
+    required this.onComplete,
   });
-
-  final TaskModel? taskModel;
+  final VoidCallback onComplete;
+  final TaskModel taskModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +23,7 @@ class TaskCard extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.75,
                 child: Text(
-                  taskModel!.title ?? "",
+                  taskModel.title ?? "",
                   style: TextStyle(
                     fontSize: 16,
                     decoration: taskModel!.isCompleted
@@ -34,11 +34,9 @@ class TaskCard extends StatelessWidget {
               ),
               Expanded(
                 child: Checkbox(
-                  value: taskModel!.isCompleted,
+                  value: taskModel.isCompleted,
                   onChanged: (val) {
-                    if (kDebugMode) {
-                      print(val);
-                    }
+                    onComplete();
                   },
                 ),
               )
