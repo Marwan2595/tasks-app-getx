@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/models/task_model.dart';
 import 'package:tasks_app/widgets/task_card.dart';
 
 class TasksScreen extends StatelessWidget {
+  List<TaskModel> testTasksList = [
+    TaskModel(title: "Task 1", isCompleted: false),
+    TaskModel(title: "Task 2", isCompleted: false),
+    TaskModel(title: "Task 3", isCompleted: false),
+    TaskModel(title: "Task 4", isCompleted: true),
+    TaskModel(title: "Task 5", isCompleted: true),
+    TaskModel(title: "Task 6", isCompleted: true),
+    TaskModel(title: "Task 7", isCompleted: false),
+    TaskModel(title: "Task 8", isCompleted: false),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +28,7 @@ class TasksScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          margin: const EdgeInsets.only(
-            top: 24,
-          ),
+          margin: const EdgeInsets.only(top: 24, bottom: 24),
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -34,24 +44,10 @@ class TasksScreen extends StatelessWidget {
               Expanded(
                 // width: 200,
                 // height: 500,
-                child: ListView(
-                  children: [
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                    TaskCard(),
-                  ],
+                child: ListView.builder(
+                  itemBuilder: (context, index) =>
+                      TaskCard(taskModel: testTasksList[index]),
+                  itemCount: testTasksList.length,
                 ),
               ),
             ],

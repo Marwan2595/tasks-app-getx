@@ -1,10 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tasks_app/models/task_model.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
     super.key,
+    required this.taskModel,
   });
 
+  final TaskModel? taskModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,24 +16,29 @@ class TaskCard extends StatelessWidget {
       child: Card(
         elevation: 3,
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.75,
-                child: const Text(
-                  "https://www.youtube.com/playlist?list=PL93xoMrxRJIvPg3nW8WG0HDDgpMQtUkag",
+                child: Text(
+                  taskModel!.title ?? "",
                   style: TextStyle(
                     fontSize: 16,
+                    decoration: taskModel!.isCompleted
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                   ),
                 ),
               ),
               Expanded(
                 child: Checkbox(
-                  value: true,
+                  value: taskModel!.isCompleted,
                   onChanged: (val) {
-                    print(val);
+                    if (kDebugMode) {
+                      print(val);
+                    }
                   },
                 ),
               )
