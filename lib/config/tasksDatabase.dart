@@ -1,18 +1,15 @@
+import 'package:injectable/injectable.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'models/task_model.dart';
+import '../features/data/models/task_model.dart';
 
+@lazySingleton
 class TasksDatabase {
-  static final TasksDatabase instance = TasksDatabase._init();
-
   static Database? _database;
-
-  TasksDatabase._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-
     _database = await _initDB('tasksDatabase.db');
     return _database!;
   }
@@ -53,6 +50,11 @@ class TasksDatabase {
 
     return result.map((json) => TaskModel.fromJson(json)).toList();
   }
+
+  // clearUserTable() async {
+  //   Database db = await instance.database;
+  //   return await db.rawDelete("DELETE FROM $tableTasks");
+  // }
 
   Future<int> updateTask(TaskModel task) async {
     final tasksDatabase = await database;

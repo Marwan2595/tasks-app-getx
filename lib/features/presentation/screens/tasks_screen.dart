@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tasks_app/controllers/tasks_controller.dart';
-import 'package:tasks_app/models/task_model.dart';
-import 'package:tasks_app/widgets/task_card.dart';
+import 'package:tasks_app/config/app_dependencies.dart';
+import 'package:tasks_app/features/data/models/task_model.dart';
+import 'package:tasks_app/features/presentation/controllers/tasks_controller.dart';
+import 'package:tasks_app/features/presentation/widgets/task_card.dart';
 
 class TasksScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final TasksController tasksController = Get.put(TasksController());
+    final TasksController tasksController = getIt.get<TasksController>();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.purple,
