@@ -5,12 +5,13 @@ import 'package:tasks_app/tasksDatabase.dart';
 class TasksController extends GetxController {
   final tasks = <TaskModel>[].obs;
   final loadingTasks = true.obs;
+  final newTask = TaskModel(title: "", isCompleted: false).obs;
   TasksController() {
     getAllTasks();
   }
   Future<void> addTask(TaskModel task) async {
-    await TasksDatabase.instance.createTask(task);
-    tasks.add(task);
+    TaskModel newTask = await TasksDatabase.instance.createTask(task);
+    tasks.add(newTask);
   }
 
   Future<void> getAllTasks() async {

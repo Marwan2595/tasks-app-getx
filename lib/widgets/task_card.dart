@@ -26,7 +26,7 @@ class TaskCard extends StatelessWidget {
                   taskModel.title ?? "",
                   style: TextStyle(
                     fontSize: 16,
-                    decoration: taskModel!.isCompleted
+                    decoration: taskModel.isCompleted
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
                   ),
