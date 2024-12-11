@@ -9,6 +9,10 @@ class AddTaskUseCase {
   final TasksRepo tasksRepo;
   AddTaskUseCase({required this.tasksRepo});
   Future<Either<Failure, TaskModel>> call(TaskModel newTask) async {
-    return await tasksRepo.createTask(newTask);
+    if (newTask.title == null || newTask.title!.isEmpty) {
+      return const Left(Failure('Task title cannot be empty'));
+    } else {
+      return await tasksRepo.createTask(newTask);
+    }
   }
 }

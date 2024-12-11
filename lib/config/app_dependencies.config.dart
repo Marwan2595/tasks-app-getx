@@ -39,10 +39,10 @@ extension GetItInjectableX on _i174.GetIt {
         tasksLocalDatasource: gh<_i963.TasksLocalDatasource>()));
     gh.factory<_i35.AddTaskUseCase>(
         () => _i35.AddTaskUseCase(tasksRepo: gh<_i172.TasksRepo>()));
-    gh.factory<_i365.GetTasksUseCase>(
-        () => _i365.GetTasksUseCase(tasksRepo: gh<_i172.TasksRepo>()));
     gh.factory<_i978.CompleteTaskUseCase>(
         () => _i978.CompleteTaskUseCase(tasksRepo: gh<_i172.TasksRepo>()));
+    gh.factory<_i365.GetTasksUseCase>(
+        () => _i365.GetTasksUseCase(tasksRepo: gh<_i172.TasksRepo>()));
     gh.factory<_i891.TasksController>(() => _i891.TasksController(
           gh<_i365.GetTasksUseCase>(),
           gh<_i35.AddTaskUseCase>(),
